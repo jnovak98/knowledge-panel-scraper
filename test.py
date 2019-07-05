@@ -1,5 +1,5 @@
 import codecs
-import sys
+import sys, re, json
 import requests
 from bs4 import BeautifulSoup
 
@@ -13,6 +13,7 @@ headers_Get = {
         'Upgrade-Insecure-Requests': '1'
     }
 
+days = ["Friday","Saturday","Sunday", "Monday","Tuesday","Wednesday", "Thursday"]
 
 def google(q):
     s = requests.Session()
@@ -32,10 +33,25 @@ def google(q):
 
 if __name__ == "__main__":
     s = google(sys.argv[1])
-    s1 = 'kp-blk knowledge-panel EyBRub Wnoohf OJXvsb'
-    n = s.find(s1)
-    print(s[n-100:n+100])
-    print(s1 in s)
+    knowledge_panel_string = 'kp-blk knowledge-panel EyBRub Wnoohf OJXvsb'
+    claimed_string = "Own this business?"
+    exists = knowledge_panel_string in s
+    claimed = not claimed_string in s
+    name_html = "kno-ecr-pt kno-fb-ctx PZPZlf gsmt"
+    name_index = s.find(name_html)
+    name_surrounding = s[name_index:name_index+500]
+    name = re.search('<span>(.*)</span>',name_surrounding).group(1)
+
+    days_html = "kc:/location/location:hours"
+    days_index = s.find(days_html)
+    days_surrounding = s[days_index:days_index+2000]
+    hours = {}
+    for day in days:
+        date_index = days_surrounding.find(day)
+        date_surrounding = days_surrounding[date_index:date_index+40]
+        hours[day] = re.search('<td>(.*)</td>',date_surrounding).group(1)
+
+    print("{0}   {1}   {2}    {3}".format(exists,claimed,name,json.dumps(hours)))
     file = codecs.open(r"output","w","utf-8")
     file.write(s)
     file.close
