@@ -8,7 +8,7 @@ Use git to clone the repository, then install required libraries with the packag
 ```bash
 git clone https://github.com/jnovak98/knowledge-panel-scraper.git
 cd knowledge-panel-scraper
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Usage
