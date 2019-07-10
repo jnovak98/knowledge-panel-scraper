@@ -13,7 +13,7 @@ pip install -r requirements.txt
 
 ## Usage
 ```bash
-python3 knowledge-panel-scraper.py inputfile.csv
+python knowledge-panel-scraper.py inputfile.csv
 ```
 
 inputfile.csv should be a plain text CSV file with each row containing data to generate a search query for a specific business.
