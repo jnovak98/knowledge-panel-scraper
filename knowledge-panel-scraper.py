@@ -1,7 +1,5 @@
-import codecs
-import sys, re, json
+import csv, json, re, sys
 import requests
-import csv
 
 headers_Get = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0',
@@ -29,7 +27,7 @@ html_regexes = {
     'address': '<span class="LrzXr">(.*)</span>'
 }
 
-days = ["Friday","Saturday","Sunday", "Monday","Tuesday","Wednesday", "Thursday"]
+days = ["Sunday", "Monday","Tuesday","Wednesday", "Thursday","Friday","Saturday"]
 
 def google(q):
     s = requests.Session()
@@ -51,9 +49,6 @@ def get_string_after_tag(string, tag, regex, distance):
 
 def get_details(query):
     html_results = google(query)
-    file = codecs.open(r"output.html","w","utf-8")
-    file.write(html_results)
-    file.close()
     results = {'query':query}
     has_knowledge_panel = html_tags['knowledge_panel'] in html_results
 
