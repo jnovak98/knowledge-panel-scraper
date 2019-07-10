@@ -1,5 +1,5 @@
 # knowledge-panel-scraper
-knowledge-panel-scraper is a Python 3 command line tool that scrapes Google's "Knowledge Panels" to retrieve the phone numbers, addresses, and hours of an inputted list of businesses.
+knowledge-panel-scraper is a Python 3 command line tool that scrapes Google's [Knowledge Panels](https://support.google.com/business/answer/6331288?hl=en) to retrieve the phone numbers, addresses, and hours of an inputted list of businesses.
 
 ## Installation
 
