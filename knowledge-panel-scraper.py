@@ -17,14 +17,16 @@ html_tags = {
     'name': "kno-ecr-pt kno-fb-ctx",
     'phone': 'LrzXr zdqRlf kno-fv',
     'days': "kc:/location/location:hours",
-    'address': "kc:/location/location:address"
+    'address': "kc:/location/location:address",
+    'website': "IzNS7c duf-h"
 }
 
 html_regexes = {
     'name': '<span>(.*)</span>',
     'phone': '<span>(.*?)</span>',
     'hours': '<td>(.*)</td>',
-    'address': '<span class="LrzXr">(.*)</span>'
+    'address': '<span class="LrzXr">(.*)</span>',
+    'website': 'href="(.*?)"'
 }
 
 days = ["Sunday", "Monday","Tuesday","Wednesday", "Thursday","Friday","Saturday"]
@@ -66,6 +68,10 @@ def get_details(query):
         if(address):
             results['address'] = address
 
+        website = get_string_after_tag(html_results, html_tags['website'],html_regexes['website'],200)
+        if(website):
+            results['website'] = website
+
         if html_tags['days'] in html_results:
             hours_index = html_results.find(html_tags['days'])
             hours_substr = html_results[hours_index:hours_index+2000]
@@ -80,7 +86,7 @@ if __name__ == "__main__":
     with open(sys.argv[1], newline='') as csvfile:
         with open('results.csv', 'w', newline='') as results:
             reader = csv.reader(csvfile)
-            fieldnames = ['query','exists', 'name','claimed','phone_number','address',
+            fieldnames = ['query','exists', 'name','claimed','phone_number','address','website',
                 "Friday_hours","Saturday_hours","Sunday_hours", "Monday_hours","Tuesday_hours","Wednesday_hours", "Thursday_hours"]
             writer = csv.DictWriter(results, fieldnames=fieldnames)
             writer.writeheader()
